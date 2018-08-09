@@ -1,3 +1,3 @@
 module.exports = {
-    Medium: require('./medium')
+    Medium: require('./file.js')
 }

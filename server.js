@@ -34,12 +34,12 @@ mongoose.connect("mongodb://localhost/week18Populater");
 // A GET route for scraping the echoJS website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with request
-  axios.get("http://www.echojs.com/").then(function(response) {
+  axios.get("https://www.nytimes.com/").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
 
     // Now, we grab every h2 within an article tag, and do the following:
-    $("a.ds-link ds-link--stylePointer u-overflowHidden u-flex0 u-sizeFullWidth").each(function (i, element) {
+    $("h2.story-heading").each(async function (i, element) {
       // Save an empty result object
       var result = {};
 
@@ -61,6 +61,7 @@ app.get("/scrape", function(req, res) {
           // If an error occurred, send it to the client
           return res.json(err);
         });
+        console.log(result);
     });
 
     // If we were able to successfully scrape and save an Article, send a message to the client
@@ -70,41 +71,8 @@ app.get("/scrape", function(req, res) {
 
 // Route for getting all Articles from the db
 app.get("/articles", function(req, res) {
-  // TODO: Finish the route so it grabs all of the articles
   db.Article.find({}).then(function(data){
     res.json(data);
-  })
-});
-
-// Route for grabbing a specific Article by id, populate it with it's note
-app.get("/articles/:id", function(req, res) {
-  // TODO
-  // ====
-  // Finish the route so it finds one article using the req.params.id,
-  // and run the populate method with "note",
-  // then responds with the article with the note included
-  db.Article
-  .findOne({_id: req.params.id})
-  .populate("note")
-  .then(function(article){
-    res.json(article);
-  })
-});
-
-// Route for saving/updating an Article's associated Note
-app.post("/articles/:id", function(req, res) {
-  // TODO
-  // ====
-  // save the new note that gets posted to the Notes collection
-  // then find an article from the req.params.id
-  // and update it's "note" property with the _id of the new note
-  db.Note.create(req.body)
-  .then(function(dbNote){
-    return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id}, {new: true})
-    
-  })
-  .then(function(updatedArticle){
-    res.json(updatedArticle);
   })
 });
 
