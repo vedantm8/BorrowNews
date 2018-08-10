@@ -1,3 +1,3 @@
 module.exports = {
-    Medium: require('./file.js')
+    Article: require('./file.js')
 }

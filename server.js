@@ -31,6 +31,13 @@ mongoose.connect("mongodb://localhost/week18Populater");
 
 // Routes
 
+app.get("/", function(req, res){
+
+
+  res.send("./public/index.html")
+})
+
+
 // A GET route for scraping the echoJS website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with request
@@ -75,6 +82,13 @@ app.get("/articles", function(req, res) {
     res.json(data);
   })
 });
+
+// Home Route
+// app.get("/", function(req, res) {
+//   db.Article.find({}).then(function(pineapples){
+//     res.render('home', {Article: pineapples});
+//   })
+// });
 
 // Start the server
 app.listen(PORT, function() {
