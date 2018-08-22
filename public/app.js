@@ -7,3 +7,4 @@ $.get("/articles", function(data) {
       $(".cardTitle").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
     }
   });
+  //a
