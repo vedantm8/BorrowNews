@@ -1,3 +1,3 @@
 Stealing... I mean borrowing news articles
 
-![ScrapingNews](demo/burgersActivity.gif)
+![ScrapingNews](demo/borrowNews.gif)
